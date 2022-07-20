@@ -1,33 +1,35 @@
 {% extends 'base.html' %}
 
-{% block title %}Register Page{% endblock %}
+{% block title%}Login Page{% endblock %}
 
 {% block content %}
-<section class="hero is-primary is-fullheight">
+<section class ="hero is-primary">
     <div class="hero-body">
         <div class="container">
             <div class="columns is-mobile">
                 <div class="column is-half is-offset-one-quarter">
-                    <div class="content"><h2 class="title">Register</h2></div>
-                    <form action="" method="POST" class="box">
+                    <div class="content">
+                        <h2 class="title">Login Page</h2></div>
+                    <form action="" class ="box" method="POST">
                         {% csrf_token %}
                         {% for non_field_error in form.non_field_errors %}
                         <p class="help is-danger">{{ non_field_error }}</p>
                         {% endfor %}
                         {% for field in form %}
-                        <div class ='field'>
-                            <label for ="{{ field.id_for_label }}" class ="label">{{ field.label }}</label>
-                            {{ field }}
+                        <div class="field">
+                            <label for="{{ field.id_for_label }}" class="label">{{ field.label }}</label>
+                            <div class="input">{{ field }}</div>
                             {% for error in field.errors %}
-                            <p class="help is-danger"> {{ error }}</p>
+                            <p class="help is-danger">{{ error }}</p>
                             {% endfor %}
                         </div>
                         {% endfor %}
-                        <button class="button is-primary" type="submit">Register</button>
+                        <button class ="button is-primary" type="submit">Login</button>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-{% endblock %}
+{% endblock content %}

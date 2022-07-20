@@ -1,6 +1,6 @@
 #Ignore these files in Git
 __pycache__/
-*.py[cod]
+*.pyc
 *$py.class
 
 # Django #
