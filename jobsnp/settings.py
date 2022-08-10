@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'jobs',
+    'crispy_forms',
+    "crispy_bulma",
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures')
 MEDIA_URL = '/pictures/'
 AUTH_USER_MODEL = 'accounts.User'
+CRISPY_TEMPLATE_PACK = 'bulma'
+CRISPY_ALLOWED_TEMPLATE_PACKS = ("bulma",)

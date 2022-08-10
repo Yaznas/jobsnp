@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.contrib.auth import login
+
 from .models import User
 from .forms import JobseekerSignUpForm, EmployerSignUpForm
 

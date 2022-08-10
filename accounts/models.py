@@ -16,11 +16,17 @@ class Jobseeker(models.Model):
     phone_number = models.CharField(max_length=20)
     location = models.CharField(max_length=50)
 
+    def __str__(self):
+        return str(self.user)
+
 class Employer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     user.is_employer = True
     company_name = models.CharField(max_length=100)
     company_location = models.CharField(max_length=50)
+
+    def __str__(self):
+        return str(self.user)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

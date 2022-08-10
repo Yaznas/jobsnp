@@ -1,20 +1,27 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar mx-6 px-6" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item" href="/">
-        JobsNP
-      </a>
-      </div>
-      <div id="navbarBasic" class="navbar-menu">
-        <div class="navbar-start">
+      <a class="navbar-item" href="/">JobsNP</a>
+    </div>
+    <div id="navbarBasic" class="navbar-menu">
+      <div class="navbar-start">
         <a class="navbar-item">Home</a>
-        <a class="navbar-item">Employers</a>
-        <a class="navbar-item">JobSeekers</a></div>
-        <div class="navbar-end">
+      </div>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Signup</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="{% url 'jobseeker_signup' %}">Jobseeker</a>
+          <a class="navbar-item" href="{% url 'employer_signup' %}">Employer</a>
+        </div>
+      </div>
+      <div class="navbar-item">
+        <div class ="buttons">
           {% if user.is_authenticated %}
-          <a href="{% url 'logout' %}">Logout</a>
-          <a href="{% url 'profile' %}">Profile</a>
+          <a class ="button" href="{% url 'logout' %}">Logout</a>
+          <a class ="button" href="{% url 'profile' %}">Profile</a>
           {% else %}
-          <a href="{% url 'login' %}">Login</a>
+          <a class ="button" href="{% url 'login' %}">Login</a>
           {% endif %}
         </div>
       </div>
