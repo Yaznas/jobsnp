@@ -139,3 +139,12 @@ AUTH_USER_MODEL = 'accounts.User'
 CRISPY_TEMPLATE_PACK = 'bulma'
 CRISPY_ALLOWED_TEMPLATE_PACKS = ("bulma",)
 LOGIN_REDIRECT_URL = 'home'
+
+# CKEditor Config
+CKEDITOR_CONFIGS = {
+    'default': {
+        'height': '291', 
+        'width': '100%',
+        'tabSpaces': 4, 
+    },
+}

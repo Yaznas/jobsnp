@@ -10,17 +10,11 @@
                 <div class="column is-half is-offset-one-quarter">
                     <div class="content">
                         <h2 class="title">Post a Job</h2></div>
-                    {% if submiited %}
-                        Your job was posted!
-                    {% else %}
-
-                    <form action="" class ="box" method="POST">
+                        <form action="" class ="box" method="POST">
                         {% csrf_token %}
-                        {{ form }}
-                        <button class ="button is-primary" type="submit">Login</button>
+                        {{ job_form|crispy }}
+                        <button class ="button is-primary" type="submit">Post Job</button>
                     </form>
-                    {% endif %}
-                    </div>
                 </div>
             </div>
         </div>
