@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'jobs',
-    'crispy_forms',
-    'crispy_bulma',
     'ckeditor',
 ]
 
@@ -136,8 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 AUTH_USER_MODEL = 'accounts.User'
-CRISPY_TEMPLATE_PACK = 'bulma'
-CRISPY_ALLOWED_TEMPLATE_PACKS = ("bulma",)
 LOGIN_REDIRECT_URL = 'home'
 
 # CKEditor Config

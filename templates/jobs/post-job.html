@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 {% block title%}Job Form - Post a Job{% endblock %}
 
 {% block content %}
@@ -12,7 +11,7 @@
                         <h2 class="title">Post a Job</h2></div>
                         <form action="" class ="box" method="POST">
                         {% csrf_token %}
-                        {{ job_form|crispy }}
+                        {{ job_form.as_p }}
                         <button class ="button is-primary" type="submit">Post Job</button>
                     </form>
                 </div>
