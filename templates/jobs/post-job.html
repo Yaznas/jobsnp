@@ -2,21 +2,18 @@
 {% block title%}Job Form - Post a Job{% endblock %}
 
 {% block content %}
-<section class ="hero is-primary">
-    <div class="hero-body">
-        <div class="container">
-            <div class="columns is-mobile">
-                <div class="column is-half is-offset-one-quarter">
-                    <div class="content">
-                        <h2 class="title">Post a Job</h2></div>
-                        <form action="" class ="box" method="POST">
-                        {% csrf_token %}
-                        {{ job_form.as_p }}
-                        <button class ="button is-primary" type="submit">Post Job</button>
-                    </form>
-                </div>
-            </div>
+{% if user.is_authenticated %}
+<div class="container">
+    <div class="row my-2 justify-content-md-center">
+        <div class="col-md-auto">
+            <h1>Post a Job</h1>
+            <form method="POST" class="">
+                {% csrf_token %}
+                {{ job_form.as_p }}
+                <button class="btn btn-secondary">Post Job</button>
+            </form>
         </div>
     </div>
-</section>
+</div>
+{% endif %}
 {% endblock content %}

@@ -1,44 +1,38 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+from django.db import models
 
-# Create your models here.
+from .managers import CustomUserManager
+
+Gender = (
+    ("M", "Male"),
+    ("F", "Female"),
+)
+
+ROLE = (
+    ("employer", "Employer"),
+    ("jobseeker", "Jobseeker"),
+)
+
+
 class User(AbstractUser):
-    is_jobseeker = models.BooleanField(default=False)
-    is_employer = models.BooleanField(default=False)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    username = None
+    email = models.EmailField(
+        unique=True,
+        blank=False,
+        error_messages={
+            "unique": "A user with that email already exists.",
+        },
+    )
+    role = models.CharField(choices=ROLE, max_length=10)
+    gender = models.CharField(choices=Gender, max_length=1, default=1)
 
-class Jobseeker(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    user.is_jobseeker = True
-    phone_number = models.CharField(max_length=20)
-    location = models.CharField(max_length=50)
-
-    def __str__(self):
-        return str(self.user)
-
-class Employer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    user.is_employer = True
-    company_name = models.CharField(max_length=100)
-    company_location = models.CharField(max_length=50)
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
 
     def __str__(self):
-        return str(self.user)
+        return self.email
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        if instance.is_jobseeker:
-            Jobseeker.objects.create(user=instance)
-        elif instance.is_employer:
-            Employer.objects.create(user=instance)
+    def get_full_name(self):
+        return self.first_name + " " + self.last_name
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    if instance.is_jobseeker:
-        instance.jobseeker.save()
-    elif instance.is_employer:
-        instance.employer.save()
+    objects = CustomUserManager()

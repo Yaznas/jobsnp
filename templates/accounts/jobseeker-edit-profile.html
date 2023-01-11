@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
-{% block title %}Register Page - Jobseeker{% endblock title %}
+{% block title %}Edit Profile - Jobseeker{% endblock title %}
 
 {% block content %}
 <div class="container shadow rounded p-2 mb-5">
     <div class="row my-2">
         <div class="col-md-auto">
-            <h1>Register as a Jobseeker</h1>
+            <h1>Edit Profile</h1>
             <form method="POST" action="{% url 'jobseeker_signup' %}">
                 <div class="form-group">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button class="btn btn-secondary">Register</button>
+                <button class="btn btn-secondary">Update</button>
             </form>
         </div>
     </div>

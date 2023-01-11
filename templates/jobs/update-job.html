@@ -1,1 +1,19 @@
 {% extends 'base.html' %}
+{% block title%}Job Form - Post a Job{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="container">
+    <div class="row my-2 justify-content-md-center">
+        <div class="col-md-auto">
+            <h1>Post a Job</h1>
+            <form method="POST" class="">
+                {% csrf_token %}
+                {{ job_form.as_p }}
+                <button class="btn btn-secondary">Update Job</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}

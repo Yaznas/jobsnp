@@ -2,20 +2,16 @@
 {% block title %}Register Page - Employer{% endblock title %}
 
 {% block content %}
-<section class="hero is-fullheight">
-    <div class="hero-body">
-        <div class="container">
-            <div class="columns is-mobile">
-                <div class="column is-half is-offset-one-quarter">
-                    <div class="content"><h2 class="title">Register as an Employer</h2></div>
-                    <form action="" method="POST" class="box">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button class="button is-primary" type="submit">Register</button>
-                    </form>
-                </div>
-            </div>
+<div class="container">
+    <div class="row my-2 justify-content-md-center">
+        <div class="col-md-auto">
+            <h1>Register as a Employer</h1>
+            <form method="POST" class="form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-secondary">Register</button>
+            </form>
         </div>
     </div>
-</section>
+</div>
 {% endblock content %}

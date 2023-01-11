@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %} Job Detail {% endblock title %}
+
+{% block content %}
+<h1>Job Details</h1>
+<p>Title: {{ job.title }}</p>
+<p>Description:</p> {{ job.description | safe }}
+<p>Tags: {{ job.tags.all|join:", "}}</p>
+<p>Category: {{ job.category }}</p>
+<p>Salary: {{ job.salary }}</p>
+<p>Location: {{ job.location }}</p>
+<p>Job Type: {{ job.job_type }}</p>
+<p>Company Name: {{ job.company_name }}</p>
+<p>Company Webste: {{ job.url }}</p>
+<p>Date: {{ job.last_date }}</p>
+
+{% endblock content %}
