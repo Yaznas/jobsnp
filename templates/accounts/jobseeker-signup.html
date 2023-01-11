@@ -1,18 +1,28 @@
 {% extends 'base.html' %}
-{% block title %}Register Page - Jobseeker{% endblock title %}
+{% load static %}
+{% block title %}Register Page - Employer{% endblock title %}
 
 {% block content %}
-<div class="container shadow rounded p-2 mb-5">
-    <div class="row my-2">
-        <div class="col-md-auto">
-            <h1>Register as a Jobseeker</h1>
-            <form method="POST" action="{% url 'jobseeker_signup' %}">
-                <div class="form-group">
+<div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-xl-9 mx-auto">
+        <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+          <div style="background: url('{% static 'images/signup-sbg.jpg' %}')" class="card-img-left d-none d-md-flex">
+          </div>
+          <div class="card-body p-4 p-sm-5">
+            <h5 class="card-title text-center mb-5 fw-light fs-5">Signup as a Jobseeker</h5>
+            <form method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button class="btn btn-secondary">Register</button>
+              <div class="d-grid mb-2">
+                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Signup</button>
+              </div>
+              <a class="d-block text-center mt-2 small" href="{% url 'login' %}">Have an account? Log In</a>
+              <hr class="my-4">
             </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 {% endblock content %}

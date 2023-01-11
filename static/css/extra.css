@@ -1,0 +1,32 @@
+.login {
+    min-height: 100vh;
+  }
+
+  .login-heading {
+    font-weight: 300;
+  }
+  
+.bg-image {
+    background-size: cover;
+    background-position: center;
+  }
+  
+  
+.btn-login {
+    font-size: 0.9rem;
+    letter-spacing: 0.05rem;
+    padding: 0.75rem 1rem;
+  }
+
+body {
+    background: white;
+  }
+  
+.card-img-left {
+    width: 45%;
+    background-size: cover;
+  }
+
+.bg-cover {
+    background-size: cover !important;
+}

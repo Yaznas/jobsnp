@@ -41,7 +41,7 @@ def post_job_view(request):
     return render(request, "jobs/post-job.html", context)
 
 
-@login_required(login_url=reverse_lazy("accounts:login"))
+@login_required(login_url=reverse_lazy("login"))
 @user_is_employer
 def update_job_view(request, id=id):
     job = get_object_or_404(Job, id=id, user=request.user.id)
@@ -59,7 +59,7 @@ def update_job_view(request, id=id):
     return render(request, "jobs/update-job.html", context)
 
 
-@login_required(login_url=reverse_lazy("account:login"))
+@login_required(login_url=reverse_lazy("accounts:login"))
 @user_is_employer
 def delete_job_view(request, id):
     job = get_object_or_404(Job, id=id, user=request.user.id)
@@ -69,6 +69,29 @@ def delete_job_view(request, id):
         messages.success(request, "Your Job Post was deleted successfully!")
 
     return redirect("jobs:dashboard")
+
+@login_required(login_url=reverse_lazy('account:login'))
+def dashboard_view(request):
+    jobs = []
+    appliedjobs = []
+    total_applicants = {}
+    if request.user.role == 'employer':
+
+        jobs = Job.objects.filter(user=request.user.id)
+        for job in jobs:
+            count = Applicant.objects.filter(job=job.id).count()
+            total_applicants[job.id] = count
+
+    if request.user.role == 'jobseeker':
+        appliedjobs = Applicant.objects.filter(user=request.user.id)
+    context = {
+
+        'jobs': jobs,
+        'appliedjobs':appliedjobs,
+        'total_applicants': total_applicants
+    }
+
+    return render(request, 'jobs/dashboard.html', context)
 
 
 def job_detail_view(request, id):
@@ -82,4 +105,8 @@ def job_detail_view(request, id):
 
 def jobs_list_view(request):
     job = Job.objects.all()
-    return render(request, "jobs/jobs-list.html", {"job": job})
+
+    context = {
+        "job": job,
+    }
+    return render(request, "jobs/jobs-list.html", context)
