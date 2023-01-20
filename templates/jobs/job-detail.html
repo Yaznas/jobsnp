@@ -1,28 +1,40 @@
 {% extends 'base.html' %}
-{% block title %} Job Detail {% endblock title %}
-
+{% load static %}
+{% block title %}
+    Job Detail
+{% endblock title %}
 {% block content %}
-<h1>Job Details</h1>
-<section class="container text-center">
-    <div class="row">
-        <div class="col-sm-8">
-            <p>Title: {{ job.title }}</p>
-            <p>Description:</p> {{ job.description | safe }} {% lorem 1 b random %} {% lorem 2 b random %}
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-            <p>Tags: {{ job.tags.all| join:", "}}</p>
-            <p>Category: {{ job.category }}</p>
-            <p>Salary: {{ job.salary }}</p>
-            <p>Location: {{ job.location }}</p>
-            <p>Job Type: {{ job.job_type }}</p>
-            <p>Company Name: {{ job.company_name }}</p>
-            <p>Company Webste: {{ job.url }}</p>
-            <p>Date: {{ job.last_date }}</p>
+    <!-- Header -->
+    <div style="background: url('{% static 'images/universe-header.jpg' %}')"
+         class="bg-cover text-white">
+        <div class="container py-5 text-center">
+            <h1 class="display-4 font-weight-bold">{{ job.title }}</h1>
+            <h2 class="font-italic mb-0">{{ job.description |safe| truncatechars:100 }}</h2>
+            <div aria-label="breadcrumb">
+                <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                <span class="text-white"><strong>Jobs Detail</strong></span>
             </div>
         </div>
-</section>
-
+    </div>
+    <section class="container text-center">
+        <div class="row">
+            <div class="col-sm-8">
+                <p>Title: {{ job.title }}</p>
+                <p>Description:</p>
+                {{ job.description | safe }} {% lorem 1 b random %} {% lorem 2 b random %}
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                    <p>Tags: {{ job.tags.all | join:", " }}</p>
+                    <p>Category: {{ job.category }}</p>
+                    <p>Salary: {{ job.salary }}</p>
+                    <p>Location: {{ job.location }}</p>
+                    <p>Job Type: {{ job.job_type }}</p>
+                    <p>Company Name: {{ job.company_name }}</p>
+                    <p>Company Webste: {{ job.url }}</p>
+                    <p>Date: {{ job.last_date }}</p>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock content %}
-
-

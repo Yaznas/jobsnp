@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Job Detail
+{% endblock title %}
+{% block content %}
+    <!-- Header -->
+    <div style="background: url('{% static 'images/universe-header.jpg' %}')"
+         class="bg-cover text-white">
+        <div class="container py-5 text-center">
+            <h1 class="display-4 font-weight-bold">Dashboard</h1>
+            <h2 class="font-italic mb-0">View your jobs</h2>
+            <div aria-label="breadcrumb">
+                <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                <span class="text-white"><strong>Dashboard</strong></span>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

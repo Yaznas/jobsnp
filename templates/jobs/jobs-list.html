@@ -1,26 +1,49 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %} Job List {% endblock title %}
-
+{% block title %}
+    Job List
+{% endblock title %}
 {% block content %}
-<!-- Header -->
-<div style="background: url('{% static 'images/universe-header.jpg' %}')" class="bg-cover text-white">
-    <div class="container py-5 text-center">
-        <h1 class="display-4 font-weight-bold">Jobs List</h1>
-        <h2 class="font-italic mb-0">All Available Jobs at JobsNP!</h2>
-        <div aria-label="breadcrumb">
-            <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
-            <span class="text-white"><strong>Jobs</strong></span>
+    <!-- Header -->
+    <div style="background: url('{% static 'images/universe-header.jpg' %}')"
+         class="bg-cover text-white">
+        <div class="container py-5 text-center">
+            <h1 class="display-4 font-weight-bold">Jobs List</h1>
+            <h2 class="font-italic mb-0">All Available Jobs at JobsNP!</h2>
+            <div aria-label="breadcrumb">
+                <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                <span class="text-white"><strong>Jobs</strong></span>
+            </div>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <h1>Job List</h1>
-{% for job in job %}
-<li>{{ job.title }} - {{ job.description | safe }}</li>
-{% empty %}
-<li> No Jobs yet.</li>
-{% endfor %}
-</div>
+    <div class="container my-4">
+        {% for job in job %}
+            <div class="row">
+                <div class="col-md-7">
+                    <a href="#">
+                        <img class="img-fluid rounded mb-3 mb-md-0"
+                             src="{% static 'images/joblist.jpg' %}"
+                             alt="">
+                    </a>
+                </div>
+                <div class="col-md-5">
+                    <h3>
+                        <img src="{% static 'icons/list_alt_black_24dp.svg' %}">
+                        {{ job.title }}
+                    </h3>
+                    <p>
+                        <img src="{% static 'icons/place_black_24dp.svg' %}">
+                        {{ job.location }}
+                    </p>
+                    <p>
+                        <img src="{% static 'icons/style_black_24dp.svg' %}">
+                        {{ job.category }}
+                    </p>
+                    <p>{{ job.description |safe |truncatechars:300 }}</p>
+                    <a class="btn btn-primary" href="{% url 'jobs:job-detail' job.id %}">See Job Details</a>
+                </div>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
 {% endblock content %}

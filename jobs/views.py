@@ -70,6 +70,60 @@ def delete_job_view(request, id):
 
     return redirect("jobs:dashboard")
 
+
+def job_detail_view(request, id):
+    job = get_object_or_404(Job, id=id)
+
+    context = {
+        "job": job,
+    }
+    return render(request, "jobs/job-detail.html", context)
+
+
+def jobs_list_view(request):
+    job = Job.objects.all()
+
+    context = {
+        "job": job,
+    }
+    return render(request, "jobs/jobs-list.html", context)
+
+@login_required(login_url=reverse_lazy('accounts:login'))
+@user_is_jobseeker
+def apply_job_view(request, id):
+
+    form = JobApplyForm(request.POST or None)
+
+    user = get_object_or_404(User, id=request.user.id)
+    applicant = Applicant.objects.filter(user=user, job=id)
+
+    if not applicant:
+        if request.method == 'POST':
+
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.user = user
+                instance.save()
+
+                messages.success(
+                    request, 'You have successfully applied for this job!')
+                return redirect(reverse("jobs:job-detail", kwargs={
+                    'id': id
+                }))
+
+        else:
+            return redirect(reverse("jobs:job-detail", kwargs={
+                'id': id
+            }))
+
+    else:
+
+        messages.error(request, 'You already applied for the Job!')
+
+        return redirect(reverse("jobs:job-detail", kwargs={
+            'id': id
+        }))
+
 @login_required(login_url=reverse_lazy('account:login'))
 def dashboard_view(request):
     jobs = []
@@ -92,21 +146,3 @@ def dashboard_view(request):
     }
 
     return render(request, 'jobs/dashboard.html', context)
-
-
-def job_detail_view(request, id):
-    job = get_object_or_404(Job, id=id)
-
-    context = {
-        "job": job,
-    }
-    return render(request, "jobs/job-detail.html", context)
-
-
-def jobs_list_view(request):
-    job = Job.objects.all()
-
-    context = {
-        "job": job,
-    }
-    return render(request, "jobs/jobs-list.html", context)

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Your Resume</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/resume.css' %}">
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="full-name">
+                    <span class="first-name">{{ resume.name }}</span>
+                </div>
+                <div class="contact-info">
+                    <span class="email">Email:</span>
+                    <span class="email-val">{{ resume.email }}</span>
+                    <span class="separator"></span>
+                    <span class="phone">Phone:</span>
+                    <span class="phone-val">{{ resume.phone }}</span>
+                </div>
+                <div class="about">
+                    <span class="position">Front-End Developer</span>
+                    <span class="desc">{{ resume.about }}</span>
+                </div>
+            </div>
+            <div class="details">
+                <div class="section">
+                    <div class="section__title">Experience</div>
+                    <div class="section__list">
+                        <div class="section__list-item">{{ resume.work }}</div>
+                    </div>
+                    <div class="section">
+                        <div class="section__title">Education</div>
+                        <div class="section__list">
+                            <div class="section__list-item">
+                                <div class="left">{{ resume.education }}</div>
+                            </div>
+                            <div class="section">
+                                <div class="section__title">Projects</div>
+                                <div class="section__list">
+                                    <div class="section__list-item">{{ resume.projects }}</div>
+                                    <div class="section">
+                                        <div class="section__title">Skills</div>
+                                        <div class="skills">
+                                            <div class="skills__item">
+                                                <div class="left">
+                                                    <div class="name">{{ resume.skills }}</div>
+                                                </div>
+                                            </div>
+                                            <div class="section">
+                                                <div class="section__title">Interests</div>
+                                                <div class="section__list">
+                                                    <div class="section__list-item">Football, programming.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </body>
+                        </html>

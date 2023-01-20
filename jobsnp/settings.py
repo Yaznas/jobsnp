@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'jobs',
+    'createresume',
     'ckeditor',
     'taggit',
 ]
@@ -140,8 +141,13 @@ LOGIN_REDIRECT_URL = 'home'
 # CKEditor Config
 CKEDITOR_CONFIGS = {
     'default': {
-        'height': '291', 
-        'width': '100%',
+        'height': '300', 
+        'width': '1050',
         'tabSpaces': 4, 
+         'toolbar': [["Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
+                ['NumberedList', 'BulletedList', "Indent", "Outdent", 'JustifyLeft', 'JustifyCenter',
+                 'JustifyRight', 'JustifyBlock'],
+                ["Image", "Table", "Link", "Unlink", "Anchor", "SectionLink", "Subscript", "Superscript"], ['Undo', 'Redo'], ["Source"],
+                ["Maximize"]],
     },
 }
