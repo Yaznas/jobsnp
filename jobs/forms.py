@@ -33,7 +33,7 @@ class JobForm(forms.ModelForm):
             "url": forms.URLInput(
                 attrs={"class": "form-control", "placeholder": "Enter Website URL"}
             ),
-            "last_date": forms.DateTimeInput(attrs={"class":"form-control"})
+            "last_date": forms.DateInput(attrs={"class":"form-control"})
         }
         labels = {
             "job_type": "Job Type",
@@ -66,10 +66,14 @@ class JobApplyForm(forms.ModelForm):
         model = Applicant
         fields = ["job"]
 
+class JobBookmarkForm(forms.ModelForm):
+    class Meta:
+        model = BookmarkJob
+        fields = ['job']
 
 class JobEditForm(forms.ModelForm):
     last_date = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "datetimepicker1"})
+        widget=forms.DateInput(attrs={"class": "form-control"})
     )
 
     class Meta:
@@ -81,11 +85,15 @@ class JobEditForm(forms.ModelForm):
             ),
             "description": CKEditorWidget(),
             "tags": forms.TextInput(attrs={"class":"form-control", "placeholder": "tag1, tag2"}),
+            "category": forms.Select(attrs={"class":"form-select"}),
             "salary": forms.NumberInput(
                 attrs={"class": "form-control", "placeholder": "Enter Estimated Salary"}
             ),
             "location": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Enter Job Location"}
+            ),
+            "job_type": forms.Select(
+                attrs={"class": "form-select"}
             ),
             "company_name": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Enter Company Name"}
@@ -100,7 +108,7 @@ class JobEditForm(forms.ModelForm):
         }
 
     def clean_job_type(self):
-        job_type = self.cleaned.data.get("job_type")
+        job_type = self.cleaned_data.get("job_type")
 
         if not job_type:
             raise forms.ValidationError("It is required")
@@ -114,7 +122,7 @@ class JobEditForm(forms.ModelForm):
         return category
 
     def save(self, commit=True):
-        job = super(JobForm, self).save(commit=False)
+        job = super(JobEditForm, self).save(commit=False)
         if commit:
             job.save()
         return job

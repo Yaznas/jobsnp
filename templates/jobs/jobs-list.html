@@ -19,27 +19,28 @@
     <div class="container my-4">
         {% for job in job %}
             <div class="row">
-                <div class="col-md-7">
+                <div class="col-md-5">
                     <a href="#">
-                        <img class="img-fluid rounded mb-3 mb-md-0"
+                        <img class="img-fluid"
                              src="{% static 'images/joblist.jpg' %}"
-                             alt="">
+                             alt=""
+                             width="600"
+                             height="400">
                     </a>
                 </div>
                 <div class="col-md-5">
                     <h3>
-                        <img src="{% static 'icons/list_alt_black_24dp.svg' %}">
+                        <i class="fa-solid fa-list"></i>
                         {{ job.title }}
                     </h3>
                     <p>
-                        <img src="{% static 'icons/place_black_24dp.svg' %}">
-                        {{ job.location }}
+                        <i class="fa-solid fa-location"></i>
+                        {{ job.location }} 
+                        <i class="fa-solid fa-user-tag"></i>
+                        {{ job.category }} 
+                        <i class="fa-solid fa-building"></i> {{ job.company_name }}
                     </p>
-                    <p>
-                        <img src="{% static 'icons/style_black_24dp.svg' %}">
-                        {{ job.category }}
-                    </p>
-                    <p>{{ job.description |safe |truncatechars:300 }}</p>
+                    <p>{{ job.description |safe |truncatechars:200 }}</p>
                     <a class="btn btn-primary" href="{% url 'jobs:job-detail' job.id %}">See Job Details</a>
                 </div>
             </div>

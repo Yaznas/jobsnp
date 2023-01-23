@@ -1,19 +1,31 @@
 {% extends 'base.html' %}
-{% block title %}
-    Edit Profile - Jobseeker
-{% endblock title %}
+{% block title %}Edit Profile Page{% endblock %}
+{% load static %}
 {% block content %}
-    <div class="container shadow rounded p-2 mb-5">
-        <div class="row my-2">
-            <div class="col-md-auto">
-                <h1>Edit Profile</h1>
-                <form method="POST" action="{% url 'jobseeker_signup' %}">
-                    <div class="form-group">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button class="btn btn-secondary">Update</button>
-                    </form>
-                </div>
+    <!-- Header -->
+    <div style="background: url('{% static 'images/universe-header.jpg' %}')"
+         class="bg-cover text-white">
+        <div class="container py-5 text-center">
+            <h1 class="display-4 font-weight-bold">Edit User Profile </h1>
+            <h2 class="font-italic mb-0">edit user profile</h2>
+            <div aria-label="breadcrumb">
+                <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                <span class="text-white"><strong>Edit Profile</strong></span>
             </div>
         </div>
-    {% endblock content %}
+    </div>
+    {% if user.is_authenticated and user.is_jobseeker %}{% endif %}
+    <!-- Edit Profile -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form method="POST" class="">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button class="btn btn-secondary">Update Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

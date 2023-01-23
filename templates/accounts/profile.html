@@ -1,7 +1,44 @@
 {% extends 'base.html' %}
-{% block title %}
-    Profile Page
-{% endblock title %}
+{% block title %}Profile Page{% endblock %}
+{% load static %}
 {% block content %}
-    <h1>{{ user.username }}</h1>
-{% endblock content %}
+    <!-- Header -->
+    <div style="background: url('{% static 'images/universe-header.jpg' %}')"
+         class="bg-cover text-white">
+        <div class="container py-5 text-center">
+            <h1 class="display-4 font-weight-bold">User Profile </h1>
+            <h2 class="font-italic mb-0">View user profile</h2>
+            <div aria-label="breadcrumb">
+                <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                <span class="text-white"><strong>Profile</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile -->
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <span class="text-primary d-block mb-5"><span class="icon-magnet display-1"></span></span>
+                <h2 class="mb-4 ">Name: {{ user.get_full_name }}</h2>
+                <p>
+                    <h3>Email :</h3>
+                    {{ user.email }}
+                </p>
+                <p>
+                    <h3>Gender :</h3>
+                    {% if user.gender == 'M' %}
+                        Male
+                    {% else %}
+                        Female
+                    {% endif %}
+                </p>
+                <div class="pb-4">
+                    <a href="{% url 'accounts:edit-profile' user.id %}" class="btn btn-info">Edit Profile</a>
+                    <a href="mailto:{{ applicant.email }}"
+                       class="btn btn-primary">Contact</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

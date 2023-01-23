@@ -35,7 +35,11 @@
             <img src="{% static 'images/user-icon.png' %}" width="25" height="25" class="rounded-circle">
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'jobs:dashboard' %}">Dashboard</a></li>
+            {% if user.role == 'employer' %}
             <li><a class="dropdown-item" href="{% url 'jobs:post-job' %}">Post Job</a></li>
+            {% endif %}
+            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">Profile</a></li>
             <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
           </ul>
         {% else %}

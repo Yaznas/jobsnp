@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Applicant Details{% endblock title %}
+{% block content %}
+    <!-- Header -->
+    <div style="background: url('{% static 'images/universe-header.jpg' %}')"
+         class="bg-cover text-white">
+        <div class="container py-5 text-center">
+            <h1 class="display-4 font-weight-bold">Applicant Details</h1>
+            <h2 class="font-italic mb-0">View applicants details</h2>
+            <div aria-label="breadcrumb">
+                <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                <span class="text-white"><strong>Applicant Details</strong></span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Applicant Details -->
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <span class="text-primary d-block mb-5"><span class="icon-magnet display-1"></span></span>
+                    <h2 class="mb-4 ">Name: {{ applicant.get_full_name }}</h2>
+                    <p>
+                        <h3>Email :</h3>
+                        {{ applicant.email }}
+                    </p>
+                    <p>
+                        <h3>Gender :</h3>
+                        {% if applicant.gender == 'M' %}
+                            Male
+                        {% else %}
+                            Female
+                        {% endif %}
+                    </p>
+                    <p>
+                        <a href="mailto:{{ applicant.email }}"
+                           class="btn btn-primary btn-md mt-4">Contact</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+{% endblock %}

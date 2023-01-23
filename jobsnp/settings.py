@@ -80,10 +80,14 @@ WSGI_APPLICATION = 'jobsnp.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'database',
-    }
+   'default': {
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'jobsnp',
+       'USER': 'postgres',
+       'PASSWORD': '123sanj53',
+       'HOST': 'localhost',
+       'PORT': '5432',
+   }
 }
 
 
@@ -150,4 +154,13 @@ CKEDITOR_CONFIGS = {
                 ["Image", "Table", "Link", "Unlink", "Anchor", "SectionLink", "Subscript", "Superscript"], ['Undo', 'Redo'], ["Source"],
                 ["Maximize"]],
     },
+}
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
 }
