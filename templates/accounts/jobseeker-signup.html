@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    Register Page - Employer
+    Register Page - Jobseeker
 {% endblock title %}
 {% block content %}
     <div class="container">
@@ -12,7 +12,7 @@
                          class="card-img-left d-none d-md-flex"></div>
                     <div class="card-body p-4 p-sm-5">
                         <h5 class="card-title text-center mb-5 fw-light fs-5">Signup as a Jobseeker</h5>
-                        <form method="POST">
+                        <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form.as_p }}
                             <div class="d-grid mb-2">

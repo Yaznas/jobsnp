@@ -22,6 +22,7 @@ class AddUserForm(forms.ModelForm):
             "last_name",
             "gender",
             "role",
+            "cv",
         )
 
     def clean_password2(self):
@@ -56,6 +57,7 @@ class UpdateUserForm(forms.ModelForm):
             "first_name",
             "gender",
             "role",
+            "cv",
             "last_name",
             "is_active",
             "is_staff",
@@ -82,6 +84,7 @@ class UserAdmin(BaseUserAdmin):
                     "last_name",
                     "gender",
                     "role",
+                    "cv",
                 )
             },
         ),

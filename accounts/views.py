@@ -14,9 +14,10 @@ def signup(request):
 
 
 def jobseeker_signup(request):
-    form = JobseekerSignUpForm(request.POST or None)
+    form = JobseekerSignUpForm(request.POST, request.FILES)
     if form.is_valid():
         form = form.save()
+        messages.success(request, "Your Account has been created. Login now!")
         return redirect("accounts:login")
     context = {"form": form}
 
@@ -27,6 +28,7 @@ def employer_signup(request):
     form = EmployerSignUpForm(request.POST or None)
     if form.is_valid():
         form = form.save()
+        messages.success(request, "Your Account has been created. Login now!")
         return redirect("accounts:login")
     context = {"form": form}
 
@@ -66,7 +68,7 @@ def jobseeker_edit_profile(request, id=id):
     if form.is_valid():
         form = form.save()
         messages.success(request, "Your Profile Was Successfully Updated!")
-        return redirect(reverse("account:edit-profile", kwargs={"id": form.id}))
+        return redirect(reverse("accounts:edit-profile", kwargs={"id": form.id}))
     context = {"form": form}
 
     return render(request, "accounts/jobseeker-edit-profile.html", context)

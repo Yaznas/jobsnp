@@ -35,7 +35,6 @@ class JobseekerSignUpForm(UserCreationForm):
                 "placeholder": "Confirm Password",
             }
         )
-
     class Meta:
         model = User
         fields = [
@@ -45,12 +44,14 @@ class JobseekerSignUpForm(UserCreationForm):
             "password1",
             "password2",
             "gender",
+            "cv",
         ]
         widgets = {
             "email": forms.EmailInput(
                 attrs={"class": "form-control", "placeholder": "Enter E-mail"}
             ),
             "gender": forms.RadioSelect(attrs={"class": "form-check-inline"}),
+            "cv": forms.FileInput(attrs={"class":" form-control"}),
         }
 
     def clean_gender(self):
@@ -175,11 +176,18 @@ class JobseekerProfileEditForm(forms.ModelForm):
         self.fields["first_name"].widget.attrs.update(
             {
                 "placeholder": "Enter First Name",
+                "class":"form-control",
             }
         )
         self.fields["last_name"].widget.attrs.update(
             {
                 "placeholder": "Enter Last Name",
+                "class":"form-control",
+            }
+        )
+        self.fields["gender"].widget.attrs.update(
+            {
+                "class":"form-select",
             }
         )
 

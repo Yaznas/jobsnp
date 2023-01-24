@@ -17,4 +17,5 @@ urlpatterns = [
     path('dashboard/employer/applicant/<int:id>/', views.applicant_details_view, name='applicant-details'),
     path('dashboard/employer/close/<int:id>/', views.make_complete_job_view, name='complete'),
     path('dashboard/jobseeker/delete-bookmark/<int:id>/', views.delete_bookmark_view, name='delete-bookmark'),
+     path('result/', views.search_job_view, name='search-job'),
 ]

@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
+from django.utils import timezone
+from django.views.generic.list import ListView
 
 from accounts.models import User
 from .models import Resume
@@ -39,3 +40,13 @@ def resume_detail_view(request, id):
         "resume": resume,
     }
     return render(request, "resume/resume.html", context)
+
+class ResumeListView(ListView):
+
+    model = Resume
+    paginate_by = 10 # if pagination is desired
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context

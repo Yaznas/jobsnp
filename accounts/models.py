@@ -25,6 +25,7 @@ class User(AbstractUser):
     )
     role = models.CharField(choices=ROLE, max_length=10)
     gender = models.CharField(choices=Gender, max_length=1, default=1)
+    cv = models.FileField(upload_to='docs/', null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []

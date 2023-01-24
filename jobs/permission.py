@@ -22,4 +22,4 @@ def user_is_jobseeker(function):
         else:
             raise PermissionDenied
 
-    return 
+    return wrap

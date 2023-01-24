@@ -34,8 +34,10 @@
                     {% endif %}
                 </p>
                 <div class="pb-4">
+                    {% if user.role == 'jobseeker'%}
                     <a href="{% url 'accounts:edit-profile' user.id %}" class="btn btn-info">Edit Profile</a>
-                    <a href="mailto:{{ applicant.email }}"
+                    {% endif %}
+                    <a href="mailto:{{ user.email }}"
                        class="btn btn-primary">Contact</a>
                 </div>
             </div>

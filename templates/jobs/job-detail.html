@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load is_job_already_applied %}
+{% load is_job_already_saved %}
 {% block title %}
     {{ job.title }} - Job Detail
 {% endblock title %}
@@ -10,7 +11,7 @@
          class="bg-cover text-white">
         <div class="container py-5 text-center">
             <h1 class="display-4 font-weight-bold">{{ job.title }}</h1>
-            <h2 class="font-italic mb-0">See Job Detals!</h2>
+            <h2 class="font-italic mb-0">See Job Details!</h2>
             <div aria-label="breadcrumb">
                 <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
                 <span class="text-white"><strong>Jobs Detail</strong></span>
@@ -18,17 +19,18 @@
         </div>
     </div>
     <!-- Job Details -->
-    <div class="container my-2">
+    {% include 'messages.html' %}
+    <section class="container my-2">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col">
                 <h3>{{ job.title }}</h3>
                 <p>
                     Company name: {{ job.company_name }} | Company website: <a href={{ job.url }}>{{ job.url }}</a>
                 </p>
-                <hr>
+                <hr/>
             </div>
         </div>
-        <div class="row">
+        <div class="row align-items-start">
             <div class="col-md-8">
                 <h4>Job Description</h4>
                 <p>{{ job.description | safe }}</p>
@@ -37,8 +39,11 @@
                 <h3>Job Overview</h3>
                 <div class="card">
                     <ul class="list-group">
-                        <li class="list-group-item"><i class="fa-solid fa-location-pin"></i> Location: {{ job.location }}</li>
-                        <li class="list-group-item"><i class="fa-solid fa-house-laptop"></i>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-location-pin"></i> Location: {{ job.location }}
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-house-laptop"></i>
                             Job Type:
                             {% if job.job_type == '1' %}
                                 Full Time
@@ -48,48 +53,72 @@
                                 Internship
                             {% endif %}
                         </li>
-                        <li class="list-group-item"><i class="fa-solid fa-money-bill"></i> Salary: {{ job.salary }}</li>
-                        <li class="list-group-item"><i class="fa-solid fa-tags"></i> Tags: {{ job.tags.all | join:", " }}</li>
-                        <li class="list-group-item"><i class="fa-solid fa-calendar-days"></i> Date: {{ job.last_date }}</li>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-money-bill"></i> Salary: {{ job.salary }}
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-tags"></i> Tags: {{ job.tags.all | join:", " }}
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-calendar-days"></i> Date: {{ job.last_date }}
+                        </li>
                     </ul>
                 </div>
                 <div class="col-md-4 my-2">
                     <p class="h3">Actions</p>
-                    {% if user.is_authenticated and user.role == 'jobseeker' %}
-                    {% is_job_already_applied job request.user as is_applied %}
-                    {% if is_applied %}
-                    <span class="btn btn-block btn-danger btn-md">Already Applied</span>
-                    {% else %}
-                    <form action="{% url 'jobs:apply-job' job.id %}" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="job" value="{{ job.id }}">
-                    <input type="submit"
-                                       class="btn btn-block btn-primary btn-md"
-                                       value="Apply Now"/>
-                    </form>
-                    {% endif %}
-
-                    {% elif request.user.id == job.user.id and user.role == 'employer' %}
-                    <div class="text-center">
-                        <a href="{% url 'jobs:update-job' job.id %}"
-                               class="btn btn-block btn-info btn-md">Edit</a>
-                        <a href="{% url 'jobs:delete-job' job.id %}"
-                               class="btn btn-block btn-danger btn-md">Delete</a>
+                    <div class="col-auto my-2">
+                        {% if user.is_authenticated and user.role == 'jobseeker' %}
+                            {% is_job_already_applied job request.user as is_applied %}
+                            {% if is_applied %}
+                                <span class="btn btn-danger">Already Applied</span>
+                            {% else %}
+                                <form action="{% url 'jobs:apply-job' job.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="job" value="{{ job.id }}">
+                                    <input type="submit"
+                                           class="btn btn-primary"
+                                           value="Apply Now"/>
+                                </form>
+                            {% endif %}
                     </div>
-
-                    {% elif user.role == none %}
-                        <div class="col">
+                        <div class="col-auto">
+                            {% is_job_already_saved job request.user as is_saved %}
+                            {% if is_saved %}
+                                <span class="btn btn-danger">Already Bookmarked</span>
+                            {% else %}
+                                <form action="{% url 'jobs:bookmark-job' job.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="job" value="{{ job.id }}">
+                                    <input type="submit"
+                                           class="btn btn-secondary"
+                                           value="Bookmark"/>
+                                </form>
+                            {% endif %}
+                        </div>
+                        {% elif request.user.id == job.user.id and user.role == 'employer' %}
+                        <div class="text-center">
+                            <a href="{% url 'jobs:update-job' job.id %}"
+                               class="btn btn-info btn-md">Edit</a>
+                            <a href="{% url 'jobs:delete-job' job.id %}"
+                               class="btn btn-danger btn-md">Delete</a>
+                        </div>
+                        {% elif user.role == none %}
+                        <div class="col-auto my-2">
+                            <form action="{% url 'jobs:bookmark-job' job.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="job" value="{{ job.id }}">
+                                <input type="submit" class="btn btn-secondary" value="Bookmark"/>
+                            </form>
+                            <br/>
                             <form action="{% url 'jobs:apply-job' job.id %}" method="POST">
                                 {% csrf_token %}
                                 <input type="hidden" name="job" value="{{ job.id }}">
-                                <input type="submit"
-                                       class="btn btn-block btn-primary btn-md"
-                                       value="Apply Now"/>
+                                <input type="submit" class="btn btn-primary" value="Apply Now"/>
                             </form>
                         </div>
                     {% endif %}
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 {% endblock content %}

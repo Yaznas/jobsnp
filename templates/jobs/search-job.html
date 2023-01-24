@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <!-- Header -->
+    <div style="background: url('{% static 'images/universe-header.jpg' %}')"
+         class="bg-cover text-white">
+        <div class="container py-5 text-center">
+            <h1 class="display-4 font-weight-bold">Search</h1>
+            <h2 class="font-italic mb-0">View search results!</h2>
+            <div aria-label="breadcrumb">
+                <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                <span class="text-white"><strong>Search</strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Results -->
+    {% if page_obj %}
+    <section class="container my-4">
+      {% for job in page_obj %}
+          <div class="row">
+              <div class="col-md-5">
+                  <a href="#">
+                      <img class="img-fluid"
+                           src="{% static 'images/joblist.jpg' %}"
+                           alt=""
+                           width="600"
+                           height="400">
+                  </a>
+              </div>
+              <div class="col-md-5">
+                  <h3>
+                      <i class="fa-solid fa-list"></i>
+                      {{ job.title }}
+                  </h3>
+                  <p>
+                      <i class="fa-solid fa-location"></i>
+                      {{ job.location }} 
+                      <i class="fa-solid fa-user-tag"></i>
+                      {{ job.category }} 
+                      <i class="fa-solid fa-building"></i> {{ job.company_name }}
+                  </p>
+                  <p>{{ job.description |safe |truncatechars:200 }}</p>
+                  <a class="btn btn-primary" href="{% url 'jobs:job-detail' job.id %}">See Job Details</a>
+              </div>
+          </div>
+          <hr>
+      {% endfor %}
+    </section>
+    {% else %}
+    <div class="text-center mb-5 my-2">
+      <p class="lead">No jobs found according to search parameters!</p>
+  </div>
+    {% endif %}
+{% endblock content %}

@@ -64,7 +64,7 @@ class JobForm(forms.ModelForm):
 class JobApplyForm(forms.ModelForm):
     class Meta:
         model = Applicant
-        fields = ["job"]
+        fields = ['job']
 
 class JobBookmarkForm(forms.ModelForm):
     class Meta:
