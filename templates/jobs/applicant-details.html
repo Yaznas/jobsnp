@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Applicant Details{% endblock title %}
+{% block title %}
+    Applicant Details
+{% endblock title %}
 {% block content %}
     <!-- Header -->
     <div style="background: url('{% static 'images/universe-header.jpg' %}')"
@@ -16,25 +18,31 @@
     </div>
     {% include 'messages.html' %}
     <!-- Applicant Details -->
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-7 my-2">
-                    <ul class="list-group">
-                        <li class="list-group-item"><h3>Name: {{ applicant.get_full_name }}</h3></li>
-                        <li class="list-group-item">Email: {{ applicant.email }}</li>
-                        <li class="list-group-item">Gender: 
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7 my-2">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <h3>Name: {{ applicant.get_full_name }}</h3>
+                    </li>
+                    <li class="list-group-item">Email: {{ applicant.email }}</li>
+                    <li class="list-group-item">
+                        Gender:
                         {% if applicant.gender == 'M' %}
                             Male
                         {% else %}
                             Female
-                        {% endif %} </li>
-                        <li class="list-group-item">CV: <a href="{{ applicant.cv.url }}">{{ applicant.cv }}</a></li>
-                    </ul>
-                    <p>
-                        <a href="mailto:{{ applicant.email }}"
-                           class="btn btn-primary btn-md mt-4">Contact</a>
-                    </p>
-                </div>
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item">
+                        CV: <a href="{{ applicant.cv.url }}">{{ applicant.cv }}</a>
+                    </li>
+                </ul>
+                <p>
+                    <a href="mailto:{{ applicant.email }}"
+                       class="btn btn-primary btn-md mt-4">Contact</a>
+                </p>
             </div>
         </div>
+    </div>
 {% endblock %}

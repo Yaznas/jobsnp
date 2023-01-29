@@ -6,7 +6,7 @@
     <div style="background: url('{% static 'images/universe-header.jpg' %}')"
          class="bg-cover text-white">
         <div class="container py-5 text-center">
-            <h1 class="display-4 font-weight-bold">User Profile </h1>
+            <h1 class="display-4 font-weight-bold">User Profile</h1>
             <h2 class="font-italic mb-0">View user profile</h2>
             <div aria-label="breadcrumb">
                 <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
@@ -14,7 +14,6 @@
             </div>
         </div>
     </div>
-
     <!-- Profile -->
     <div class="container">
         <div class="row">
@@ -34,11 +33,10 @@
                     {% endif %}
                 </p>
                 <div class="pb-4">
-                    {% if user.role == 'jobseeker'%}
-                    <a href="{% url 'accounts:edit-profile' user.id %}" class="btn btn-info">Edit Profile</a>
+                    {% if user.role == 'jobseeker' %}
+                        <a href="{% url 'accounts:edit-profile' user.id %}" class="btn btn-info">Edit Profile</a>
                     {% endif %}
-                    <a href="mailto:{{ user.email }}"
-                       class="btn btn-primary">Contact</a>
+                    <a href="mailto:{{ user.email }}" class="btn btn-primary">Contact</a>
                 </div>
             </div>
         </div>

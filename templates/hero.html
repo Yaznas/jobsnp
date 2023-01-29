@@ -1,35 +1,55 @@
- <!-- Index Page Header -->
- <header class="bg-dark text-secondary px-4 py-5 text-center">
+<!-- Index Page Header -->
+<header class="bg-dark text-secondary px-4 py-5 text-center">
     <div class="py">
-      <h1 class="display-5 fw-bold text-white">JobsNP</h1>
-      <div class="col-lg-6 mx-auto">
-        <p class="fs-5 mb-4">JobsNP is a web application for an Online Job Portal using Django Web Framework. Find the job you want!</p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <form method="GET" action="{% url 'jobs:search-job' %}">
-            <div class="row mb-3">
-                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                  
-                  <input type="text" name="job_title_or_company_name" class="form-control" placeholder="Job title, Company">
+        <h1 class="display-5 fw-bold text-white">JobsNP</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="fs-5 mb-4">
+                JobsNP is a web application for an Online Job Portal using Django Web Framework. Find the job you want!
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <form method="GET" action="{% url 'jobs:search-job' %}">
+                    <div class="row mb-3">
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <input type="text"
+                                   name="job_title_or_company_name"
+                                   class="form-control"
+                                   placeholder="Job title, Company">
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <input type="text"
+                                   name="location"
+                                   class="form-control"
+                                   placeholder="Location">
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <select name="job_type"
+                                    class="form-select"
+                                    data-style="btn-white"
+                                    data-width="100%"
+                                    data-live-search="true"
+                                    title="Select Job Type">
+                                <option selected="">
+                                    Select Job Type
+                                </option>
+                                <option value="1">
+                                    Full Time
+                                </option>
+                                <option value="2">
+                                    Part Time
+                                </option>
+                                <option value="3">
+                                    Internship
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                            <button type="submit" class="btn btn-primary btn-block text-white">
+                                <i class="fa-solid fa-magnifying-glass"></i> Search Job
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                  <input type="text" name="location" class="form-control" placeholder="Location">
-                </div>
-                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                  <select name="job_type" class="form-select" data-style="btn-white" data-width="100%" data-live-search="true"
-                    title="Select Job Type">
-                    <option selected="">Select Job Type</option>
-                    <option value="1">Full Time</option>
-                    <option value="2">Part Time</option>
-                    <option value="3">Internship</option>
-                  </select>
-                </div>
-                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
-                  <button type="submit" class="btn btn-primary btn-block text-white">
-                    <i class="fa-solid fa-magnifying-glass"></i> Search Job</button>
-                </div>
-              </div>
-            </div>
-          </form>
+            </form>
         </div>
     </div>
 </header>

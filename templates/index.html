@@ -1,41 +1,46 @@
 {% extends 'base.html' %}
-{% block title %}JobsNP: Find the job you want{% endblock title %}
+{% block title %}
+    JobsNP: Find the job you want
+{% endblock title %}
 {% include 'hero.html' %}
 {% block content %}
-{% include 'hero.html' %}
-<!-- Index Job Listings -->
-<section class="container">
-    {% if page_obj %}
-    <div class="text-center mb-5 my-2">
-      <h3> {{ total_jobs }} Job Listed</h3>
-      <p class="lead">Check out the job listed below!</p>
-    </div>
-    {% for job in page_obj %}
-    <div class="card mb-3">
-      <div class="card-body">
-        <div class="d-flex flex-column flex-lg-row">
-          <span class="avatar avatar-text rounded-3 me-4 mb-2">{{ job.title |slice:"0:2"}}</span>
-          <div class="row flex-fill">
-            <div class="col-sm-5">
-              <h4 class="h5">{{ job.title }}</h4>
-              <span class="badge bg-secondary"><i class="fa-solid fa-location-dot"></i> {{ job.location }}</span> <span class="badge bg-success"><i class="fa-solid fa-money-bill"></i> {{ job.salary }}</span>
+    {% include 'hero.html' %}
+    <!-- Index Job Listings -->
+    <section class="container">
+        {% if page_obj %}
+            <div class="text-center mb-5 my-2">
+                <h3>{{ total_jobs }} Job Listed</h3>
+                <p class="lead">Check out the job listed below!</p>
             </div>
-            <div class="col-sm-4 py-2">
-            {% for tag in job.tags.all %}
-              <span class="badge bg-secondary"><i class="fa-solid fa-user-tag"></i> {{ tag.name }}</span>
-            {% endfor %}  
-            </div>
-            <div class="col-sm-3 text-lg-end">
-              <a class="btn btn-primary stretched-link" href="{% url 'jobs:job-detail' job.id %}">See Job Details</a>
-            </div>
-          </div>
+            {% for job in page_obj %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="d-flex flex-column flex-lg-row">
+                            <span class="avatar avatar-text rounded-3 me-4 mb-2">{{ job.title |slice:"0:2" }}</span>
+                            <div class="row flex-fill">
+                                <div class="col-sm-5">
+                                    <h4 class="h5">{{ job.title }}</h4>
+                                    <span class="badge bg-secondary"><i class="fa-solid fa-location-dot"></i> {{ job.location }}</span> <span class="badge bg-success"><i class="fa-solid fa-money-bill"></i> {{ job.salary }}</span>
+                                </div>
+                                <div class="col-sm-4 py-2">
+                                    {% for tag in job.tags.all %}
+                                        <span class="badge bg-secondary"><i class="fa-solid fa-user-tag"></i> {{ tag.name }}</span>
+                                    {% endfor %}
+                                </div>
+                                <div class="col-sm-3 text-lg-end">
+                                    <a class="btn btn-primary stretched-link"
+                                       href="{% url 'jobs:job-detail' job.id %}">See Job Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="text-center mb-5 my-2">
+            <p class="lead">
+                Want to see more jobs? Click <a href="{% url 'jobs:jobs-list' %}">Here</a>!
+            </p>
         </div>
-      </div>
-    </div>
-    {% endfor %}
-    {% endif %}
-    <div class="text-center mb-5 my-2">
-        <p class="lead">Want to see more jobs? Click <a href="{% url 'jobs:jobs-list' %}">Here</a>!</p>
-    </div>
-</section>
+    </section>
 {% endblock content %}

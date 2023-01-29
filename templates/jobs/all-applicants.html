@@ -15,41 +15,41 @@
         </div>
     </div>
     {% include 'messages.html' %}
-        <div class="container my-4">
-            <div class="row">
-                <div class="col mb-5">
-                    <div class="card">
-                        <h5 class="card-header text-center">All Applicants</h5>
-                    </div>
-                            <table class="table table-bordered text-center my-2">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Job Title</th>
-                                        <th>Applied Date</th>
-                                        <th>View</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for applicant in all_applicants %}
-                                        {{ applicant.get_total_applicant }}
-                                        <tr>
-                                            <td class="text-center">
-                                                <a class="text-decoration-none" href="">{{ applicant.user.get_full_name }}</a>
-                                            </td     >
-                                            <td>{{ applicant.job.title }}</td>
-                                            <td>{{ applicant.timestamp }}</td>
-                                            <td>
-                                                <a class="btn btn-info btn-sm"
-                                                   href="{% url 'jobs:applicant-details' applicant.user.id %}"
-                                                   role="button">Check Applicant</a>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                    </div>
+    <div class="container my-4">
+        <div class="row">
+            <div class="col mb-5">
+                <div class="card">
+                    <h5 class="card-header text-center">All Applicants</h5>
                 </div>
+                <table class="table table-bordered text-center my-2">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Job Title</th>
+                            <th>Applied Date</th>
+                            <th>View</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for applicant in all_applicants %}
+                            {{ applicant.get_total_applicant }}
+                            <tr>
+                                <td class="text-center">
+                                    <a class="text-decoration-none" href="">{{ applicant.user.get_full_name }}</a>
+                                </td     >
+                                <td>{{ applicant.job.title }}</td>
+                                <td>{{ applicant.timestamp }}</td>
+                                <td>
+                                    <a class="btn btn-info btn-sm"
+                                       href="{% url 'jobs:applicant-details' applicant.user.id %}"
+                                       role="button">Check Applicant</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
+</div>
 {% endblock %}

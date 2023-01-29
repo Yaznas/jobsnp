@@ -35,9 +35,9 @@
                     </h3>
                     <p>
                         <i class="fa-solid fa-location"></i>
-                        {{ job.location }} 
+                        {{ job.location }}
                         <i class="fa-solid fa-user-tag"></i>
-                        {{ job.category }} 
+                        {{ job.category }}
                         <i class="fa-solid fa-building"></i> {{ job.company_name }}
                     </p>
                     <p>{{ job.description |safe |truncatechars:200 }}</p>
@@ -47,24 +47,31 @@
             <hr>
         {% endfor %}
     </div>
-
     <!-- Pagination -->
     <div class="container">
         <nav aria-label="Page navigation">
             <ul class="pagination">
-            {% if page_obj.has_previous %}
-                <li class="page-item"><a class ="page-link" href="?page=1">&laquo; First</a></li>
-                <li class="page-item"><a class ="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
-            {% endif %}
-    
-            <li class="page-item"><a class ="page-link" href="?page={{ page_obj.number }}">This Page</a></li>
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class ="page-link" href="?page=1">&laquo; First</a>
+                    </li>
+                    <li class="page-item">
+                        <a class ="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                {% endif %}
+                <li class="page-item">
+                    <a class ="page-link" href="?page={{ page_obj.number }}">This Page</a>
+                </li>
             </li>
-    
             {% if page_obj.has_next %}
-                <li class="page-item"><a class ="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
-                <li class="page-item"><a class ="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+                <li class="page-item">
+                    <a class ="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                <li class="page-item">
+                    <a class ="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                </li>
             {% endif %}
-            </ul>
-        </nav>
-    </div>
+        </ul>
+    </nav>
+</div>
 {% endblock content %}

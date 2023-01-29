@@ -75,12 +75,10 @@
                                 <form action="{% url 'jobs:apply-job' job.id %}" method="POST">
                                     {% csrf_token %}
                                     <input type="hidden" name="job" value="{{ job.id }}">
-                                    <input type="submit"
-                                           class="btn btn-primary"
-                                           value="Apply Now"/>
+                                    <input type="submit" class="btn btn-primary" value="Apply Now"/>
                                 </form>
                             {% endif %}
-                    </div>
+                        </div>
                         <div class="col-auto">
                             {% is_job_already_saved job request.user as is_saved %}
                             {% if is_saved %}
@@ -89,20 +87,17 @@
                                 <form action="{% url 'jobs:bookmark-job' job.id %}" method="POST">
                                     {% csrf_token %}
                                     <input type="hidden" name="job" value="{{ job.id }}">
-                                    <input type="submit"
-                                           class="btn btn-secondary"
-                                           value="Bookmark"/>
+                                    <input type="submit" class="btn btn-secondary" value="Bookmark"/>
                                 </form>
                             {% endif %}
                         </div>
-                        {% elif request.user.id == job.user.id and user.role == 'employer' %}
+                    {% elif request.user.id == job.user.id and user.role == 'employer' %}
                         <div class="text-center">
-                            <a href="{% url 'jobs:update-job' job.id %}"
-                               class="btn btn-info btn-md">Edit</a>
+                            <a href="{% url 'jobs:update-job' job.id %}" class="btn btn-info btn-md">Edit</a>
                             <a href="{% url 'jobs:delete-job' job.id %}"
                                class="btn btn-danger btn-md">Delete</a>
                         </div>
-                        {% elif user.role == none %}
+                    {% elif user.role == none %}
                         <div class="col-auto my-2">
                             <form action="{% url 'jobs:bookmark-job' job.id %}" method="POST">
                                 {% csrf_token %}
