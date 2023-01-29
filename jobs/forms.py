@@ -10,30 +10,41 @@ from ckeditor.widgets import CKEditorWidget
 class JobForm(forms.ModelForm):
     class Meta:
         model = Job
-        fields = ["title", "description", "tags", "category", "salary", "location", "job_type", "company_name", "url", "last_date"]
+        fields = [
+            "title",
+            "description",
+            "tags",
+            "category",
+            "salary",
+            "location",
+            "job_type",
+            "company_name",
+            "url",
+            "last_date",
+        ]
         widgets = {
             "title": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Enter Job Title"}
             ),
             "description": CKEditorWidget(),
-            "tags": forms.TextInput(attrs={"class":"form-control", "placeholder": "tag1, tag2"}),
-            "category": forms.Select(attrs={"class":"form-select"}),
+            "tags": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "tag1, tag2"}
+            ),
+            "category": forms.Select(attrs={"class": "form-select"}),
             "salary": forms.NumberInput(
                 attrs={"class": "form-control", "placeholder": "Enter Estimated Salary"}
             ),
             "location": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Enter Job Location"}
             ),
-            "job_type": forms.Select(
-                attrs={"class": "form-select"}
-            ),
+            "job_type": forms.Select(attrs={"class": "form-select"}),
             "company_name": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Enter Company Name"}
             ),
             "url": forms.URLInput(
                 attrs={"class": "form-control", "placeholder": "Enter Website URL"}
             ),
-            "last_date": forms.DateInput(attrs={"class":"form-control"})
+            "last_date": forms.DateInput(attrs={"class": "form-control"}),
         }
         labels = {
             "job_type": "Job Type",
@@ -64,37 +75,48 @@ class JobForm(forms.ModelForm):
 class JobApplyForm(forms.ModelForm):
     class Meta:
         model = Applicant
-        fields = ['job']
+        fields = ["job"]
+
 
 class JobBookmarkForm(forms.ModelForm):
     class Meta:
         model = BookmarkJob
-        fields = ['job']
+        fields = ["job"]
+
 
 class JobEditForm(forms.ModelForm):
-    last_date = forms.CharField(
-        widget=forms.DateInput(attrs={"class": "form-control"})
-    )
+    last_date = forms.CharField(widget=forms.DateInput(attrs={"class": "form-control"}))
 
     class Meta:
         model = Job
-        fields = ["title", "description", "tags", "category", "salary", "location", "job_type", "company_name", "url", "last_date"]
+        fields = [
+            "title",
+            "description",
+            "tags",
+            "category",
+            "salary",
+            "location",
+            "job_type",
+            "company_name",
+            "url",
+            "last_date",
+        ]
         widgets = {
             "title": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Enter Job Title"}
             ),
             "description": CKEditorWidget(),
-            "tags": forms.TextInput(attrs={"class":"form-control", "placeholder": "tag1, tag2"}),
-            "category": forms.Select(attrs={"class":"form-select"}),
+            "tags": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "tag1, tag2"}
+            ),
+            "category": forms.Select(attrs={"class": "form-select"}),
             "salary": forms.NumberInput(
                 attrs={"class": "form-control", "placeholder": "Enter Estimated Salary"}
             ),
             "location": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Enter Job Location"}
             ),
-            "job_type": forms.Select(
-                attrs={"class": "form-select"}
-            ),
+            "job_type": forms.Select(attrs={"class": "form-select"}),
             "company_name": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Enter Company Name"}
             ),

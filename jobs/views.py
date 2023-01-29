@@ -15,16 +15,13 @@ User = get_user_model()
 
 # Create your views here.
 def home(request):
-    published_jobs = Job.objects.filter(is_published=True).order_by('-timestamp')
+    published_jobs = Job.objects.filter(is_published=True).order_by("-timestamp")
     jobs = published_jobs.filter(is_closed=False)
     paginator = Paginator(jobs, 4)
-    page_number = request.GET.get('page',None)
+    page_number = request.GET.get("page", None)
     page_obj = paginator.get_page(page_number)
 
-    context = {
-        'page_obj':page_obj,
-        'total_jobs': len(jobs)
-        }
+    context = {"page_obj": page_obj, "total_jobs": len(jobs)}
 
     return render(request, "index.html", context)
 
@@ -43,9 +40,7 @@ def post_job_view(request):
         instance.save()
         # for save tags
         job_form.save_m2m()
-        messages.success(
-            request, "You have successfully posted your job!"
-        )
+        messages.success(request, "You have successfully posted your job!")
         return redirect(reverse("jobs:job-detail", kwargs={"id": instance.id}))
 
     context = {"job_form": job_form, "categories": categories}
@@ -92,10 +87,10 @@ def job_detail_view(request, id):
 
 
 def jobs_list_view(request):
-    job = Job.objects.all().order_by('id')
-    paginator = Paginator(job, 5) # Show 5 jobs per page.
+    job = Job.objects.all().order_by("id")
+    paginator = Paginator(job, 5)  # Show 5 jobs per page.
 
-    page_number = request.GET.get('page')
+    page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     context = {
@@ -104,26 +99,26 @@ def jobs_list_view(request):
     return render(request, "jobs/jobs-list.html", context)
 
 
-@login_required(login_url=reverse_lazy('accounts:login'))
+@login_required(login_url=reverse_lazy("accounts:login"))
 @user_is_jobseeker
 def apply_job_view(request, id):
     user = get_object_or_404(User, id=request.user.id)
     applicant = Applicant.objects.filter(user=user, job=id)
     form = JobApplyForm(request.POST or None)
     if not applicant:
-        if request.method == 'POST':
+        if request.method == "POST":
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.user = user
                 instance.save()
-                messages.success(
-                    request, 'You have successfully applied for this job!')
-                return redirect(reverse("jobs:job-detail", kwargs={'id': id}))
+                messages.success(request, "You have successfully applied for this job!")
+                return redirect(reverse("jobs:job-detail", kwargs={"id": id}))
         else:
-            return redirect(reverse("jobs:job-detail", kwargs={'id': id}))
+            return redirect(reverse("jobs:job-detail", kwargs={"id": id}))
     else:
-        messages.error(request, 'You already applied for the Job!')
-        return redirect(reverse("jobs:job-detail", kwargs={'id': id}))
+        messages.error(request, "You already applied for the Job!")
+        return redirect(reverse("jobs:job-detail", kwargs={"id": id}))
+
 
 @login_required(login_url=reverse_lazy("accounts:login"))
 def dashboard_view(request):
@@ -189,7 +184,8 @@ def applicant_details_view(request, id):
 
     return render(request, "jobs/applicant-details.html", context)
 
-@login_required(login_url=reverse_lazy('accounts:login'))
+
+@login_required(login_url=reverse_lazy("accounts:login"))
 @user_is_jobseeker
 def job_bookmark_view(request, id):
 
@@ -199,32 +195,26 @@ def job_bookmark_view(request, id):
     applicant = BookmarkJob.objects.filter(user=request.user.id, job=id)
 
     if not applicant:
-        if request.method == 'POST':
+        if request.method == "POST":
 
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.user = user
                 instance.save()
 
-                messages.success(
-                    request, 'You have successfully bookmarked this job!')
-                return redirect(reverse("jobs:job-detail", kwargs={
-                    'id': id
-                }))
+                messages.success(request, "You have successfully bookmarked this job!")
+                return redirect(reverse("jobs:job-detail", kwargs={"id": id}))
 
         else:
-            return redirect(reverse("jobs:job-detail", kwargs={
-                'id': id
-            }))
+            return redirect(reverse("jobs:job-detail", kwargs={"id": id}))
 
     else:
-        messages.error(request, 'You already bookmarked this Job!')
+        messages.error(request, "You already bookmarked this Job!")
 
-        return redirect(reverse("jobs:job-detail", kwargs={
-            'id': id
-        }))
+        return redirect(reverse("jobs:job-detail", kwargs={"id": id}))
 
-@login_required(login_url=reverse_lazy('accounts:login'))
+
+@login_required(login_url=reverse_lazy("accounts:login"))
 @user_is_jobseeker
 def delete_bookmark_view(request, id):
 
@@ -233,35 +223,36 @@ def delete_bookmark_view(request, id):
     if job:
 
         job.delete()
-        messages.success(request, 'Bookmarked Job was successfully deleted!')
+        messages.success(request, "Bookmarked Job was successfully deleted!")
 
-    return redirect('jobs:dashboard')
+    return redirect("jobs:dashboard")
+
 
 def search_job_view(request):
-    job_list = Job.objects.all().order_by('-timestamp')
+    job_list = Job.objects.all().order_by("-timestamp")
 
-    if 'job_title_or_company_name' in request.GET:
-        job_title_or_company_name = request.GET['job_title_or_company_name']
+    if "job_title_or_company_name" in request.GET:
+        job_title_or_company_name = request.GET["job_title_or_company_name"]
 
         if job_title_or_company_name:
-            job_list = job_list.filter(title__icontains=job_title_or_company_name) | job_list.filter(company_name__icontains=job_title_or_company_name)
+            job_list = job_list.filter(
+                title__icontains=job_title_or_company_name
+            ) | job_list.filter(company_name__icontains=job_title_or_company_name)
 
-    if 'location' in request.GET:
-        location = request.GET['location']
+    if "location" in request.GET:
+        location = request.GET["location"]
 
         if location:
             job_list = job_list.filter(location__icontains=location)
 
-    if 'job_type' in request.GET:
-        job_type = request.GET['job_type']
+    if "job_type" in request.GET:
+        job_type = request.GET["job_type"]
         if job_type:
             job_list = job_list.filter(job_type__iexact=job_type)
 
     paginator = Paginator(job_list, 3)
-    page_number = request.GET.get('page')
+    page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    context={
-        'page_obj': page_obj
-    }
-    return render(request,'jobs/search-job.html', context)
+    context = {"page_obj": page_obj}
+    return render(request, "jobs/search-job.html", context)

@@ -1,10 +1,10 @@
 from django.core.exceptions import PermissionDenied
 
+
 def user_is_employer(function):
+    def wrap(request, *args, **kwargs):
 
-    def wrap(request, *args, **kwargs):   
-
-        if request.user.role == 'employer':
+        if request.user.role == "employer":
             return function(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -12,12 +12,10 @@ def user_is_employer(function):
     return wrap
 
 
-
 def user_is_jobseeker(function):
+    def wrap(request, *args, **kwargs):
 
-    def wrap(request, *args, **kwargs):    
-
-        if request.user.role == 'jobseeker':
+        if request.user.role == "jobseeker":
             return function(request, *args, **kwargs)
         else:
             raise PermissionDenied

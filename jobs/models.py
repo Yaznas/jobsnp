@@ -12,13 +12,16 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class Job(models.Model):
-    user = models.ForeignKey(User, related_name='User', on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, related_name='Category', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="User", on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        Category, related_name="Category", on_delete=models.CASCADE
+    )
     JOB_TYPE = (
-        ('1', 'Full Time'),
-        ('2', 'Part Time'),
-        ('3', 'Internship'),
+        ("1", "Full Time"),
+        ("2", "Part Time"),
+        ("3", "Internship"),
     )
 
     title = models.CharField(max_length=150)
@@ -37,20 +40,21 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
+
 class Applicant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applicants')
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="applicants")
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
         return self.job.title
 
+
 class BookmarkJob(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='bookmarks')
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name="bookmarks")
     timestamp = models.DateTimeField(auto_now=True, auto_now_add=False)
-
 
     def __str__(self):
         return self.job.title

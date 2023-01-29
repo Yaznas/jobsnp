@@ -16,6 +16,7 @@ User = get_user_model()
 
 # Create your views here.
 
+
 @login_required(login_url=reverse_lazy("accounts:login"))
 def create_resume_view(request):
     resume_form = ResumeForm(request.POST or None)
@@ -25,13 +26,12 @@ def create_resume_view(request):
         instance = resume_form.save(commit=False)
         instance.user = user
         instance.save()
-        messages.success(
-            request, "You have created your resume."
-        )
+        messages.success(request, "You have created your resume.")
         return redirect(reverse("createresume:resume", kwargs={"id": instance.id}))
 
     context = {"resume_form": resume_form}
     return render(request, "resume/resume-form.html", context)
+
 
 def resume_detail_view(request, id):
     resume = get_object_or_404(Resume, id=id)
@@ -41,12 +41,13 @@ def resume_detail_view(request, id):
     }
     return render(request, "resume/resume.html", context)
 
+
 class ResumeListView(ListView):
 
     model = Resume
-    paginate_by = 10 # if pagination is desired
+    paginate_by = 10  # if pagination is desired
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['now'] = timezone.now()
+        context["now"] = timezone.now()
         return context

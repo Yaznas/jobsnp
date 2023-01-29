@@ -73,6 +73,7 @@ def jobseeker_edit_profile(request, id=id):
 
     return render(request, "accounts/jobseeker-edit-profile.html", context)
 
+
 @login_required
 def profile(request):
-    return render(request, 'accounts/profile.html')
+    return render(request, "accounts/profile.html")
