@@ -40,7 +40,9 @@
                 </ul>
                 <p>
                     <a href="mailto:{{ applicant.email }}"
-                       class="btn btn-primary btn-md mt-4">Contact</a>
+                       class="btn btn-primary mt-2">Contact</a>
+                    <a href="{% url 'jobs:send-feedback' applicant.id %}"
+                       class="btn btn-info mt-2">Send Feedback</a>
                 </p>
             </div>
         </div>

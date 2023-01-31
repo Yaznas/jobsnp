@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Feedback Page{% endblock %}
+{% load static %}
+{% block content %}
+    <!-- Header -->
+    <div style="background: url('{% static 'images/universe-header.jpg' %}')"
+         class="bg-cover text-white">
+        <div class="container py-5 text-center">
+            <h1 class="display-4 font-weight-bold">Feedbacks</h1>
+            <h2 class="font-italic mb-0">View feedbacks</h2>
+            <div aria-label="breadcrumb">
+                <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                <span class="text-white"><strong>Feedbacks</strong></span>
+            </div>
+        </div>
+    </div>
+    <!-- Feedback -->
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3>Read user's feedbacks here!</h3>
+                {% for message in user_messages %}
+                    <ul class="list-group">
+                        <li class="list-group-item">{{ message.sender.get_full_name }} said: {{ message.message }}</li>
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

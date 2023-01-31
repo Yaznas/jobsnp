@@ -256,3 +256,30 @@ def search_job_view(request):
 
     context = {"page_obj": page_obj}
     return render(request, "jobs/search-job.html", context)
+
+
+@login_required(login_url=reverse_lazy("accounts:login"))
+def send_feedback(request, receiver_id):
+    receiver = User.objects.get(id=receiver_id)
+    if request.method == "POST":
+        form = FeedbackMessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.receiver = receiver
+            message.save()
+            messages.success(request, "You have successfully sent your feedback.")
+            return redirect(
+                reverse("jobs:applicant-details", kwargs={"id": receiver_id})
+            )
+    else:
+        form = FeedbackMessageForm()
+        context = {"form": form}
+    return render(request, "send_feedback.html", context)
+
+
+@login_required(login_url=reverse_lazy("accounts:login"))
+def see_feedback(request):
+    user_messages = FeedbackMessage.objects.filter(receiver=request.user)
+    context = {"user_messages": user_messages}
+    return render(request, "user-feedback.html", context)

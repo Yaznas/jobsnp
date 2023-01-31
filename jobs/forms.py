@@ -148,3 +148,17 @@ class JobEditForm(forms.ModelForm):
         if commit:
             job.save()
         return job
+
+
+class FeedbackMessageForm(forms.ModelForm):
+    class Meta:
+        model = FeedbackMessage
+        fields = ["message"]
+        widgets = {
+            "message": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Enter your feedback message",
+                }
+            )
+        }

@@ -24,3 +24,10 @@ class BookmarkJobAdmin(admin.ModelAdmin):
 
 
 admin.site.register(BookmarkJob, BookmarkJobAdmin)
+
+
+class FeedbackMessageAdmin(admin.ModelAdmin):
+    list_display = ("sender", "receiver", "message", "created_at")
+
+
+admin.site.register(FeedbackMessage, FeedbackMessageAdmin)
