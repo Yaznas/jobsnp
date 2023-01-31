@@ -1,7 +1,4 @@
 from django import forms
-from django.contrib.auth import authenticate
-from django.contrib.auth import get_user_model
-from django.contrib import auth
 
 from .models import *
 from ckeditor.widgets import CKEditorWidget

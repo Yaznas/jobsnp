@@ -40,7 +40,7 @@ def post_job_view(request):
         instance.save()
         # for save tags
         job_form.save_m2m()
-        messages.success(request, "You have successfully posted your job!")
+        messages.success(request, "You have successfully posted your job! Also, An Email Notification has been sent to Jobseekers!")
         return redirect(reverse("jobs:job-detail", kwargs={"id": instance.id}))
 
     context = {"job_form": job_form, "categories": categories}
@@ -259,6 +259,7 @@ def search_job_view(request):
 
 
 @login_required(login_url=reverse_lazy("accounts:login"))
+@user_is_employer
 def send_feedback(request, receiver_id):
     receiver = User.objects.get(id=receiver_id)
     if request.method == "POST":
@@ -279,6 +280,7 @@ def send_feedback(request, receiver_id):
 
 
 @login_required(login_url=reverse_lazy("accounts:login"))
+@user_is_jobseeker
 def see_feedback(request):
     user_messages = FeedbackMessage.objects.filter(receiver=request.user)
     context = {"user_messages": user_messages}

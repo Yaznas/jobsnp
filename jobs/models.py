@@ -1,4 +1,7 @@
 from django.db import models
+from django.core.mail import send_mail
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.contrib.auth import get_user_model
 from ckeditor.fields import RichTextField
 from taggit.managers import TaggableManager
@@ -39,6 +42,18 @@ class Job(models.Model):
 
     def __str__(self):
         return self.title
+
+# Email Notification
+@receiver(post_save, sender=Job)
+def send_email_notification(sender, instance, created, **kwargs):
+    if created:
+        subject = 'New job opportunity'
+        message = f'A new job "{instance.title}" has been posted by {instance.company_name}.'
+        from_email = 'JobsNP Admin'
+        recipient_list = [user.email for user in User.objects.all().filter(role="jobseeker")]
+        send_mail(subject, message, from_email, recipient_list)
+
+post_save.connect(send_email_notification, sender=Job)
 
 
 class Applicant(models.Model):
