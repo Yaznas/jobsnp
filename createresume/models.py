@@ -10,6 +10,7 @@ class Resume(models.Model):
     name = models.CharField(max_length=200)
     email = models.CharField(max_length=200)
     phone = models.CharField(max_length=200)
+    location = models.CharField(max_length=200, null=True)
     about = models.TextField(max_length=1000)
     education = RichTextField()
     projects = RichTextField()

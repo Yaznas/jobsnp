@@ -1,165 +1,115 @@
-* {
+body {
+  color: #000000;
+  background: #EEEEEE;
+  font: 1.1em "Times New Roman";
+  line-height: 1.2;
+  margin: 40px 0;
+}
+#resume {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 40px 60px;
+  background: #FFFFFF;
+  border: 1px solid #CCCCCC;
+  box-shadow: 2px 2px 4px #AAAAAA;
+  -webkit-box-shadow: 2px 2px 4px #AAAAAA;
+}
+h1 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 200%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
-html {
-  height: 100%;  
+h2 {
+  border-bottom: 1px solid #000000;
+  text-transform: uppercase;
+  font-size: 130%;
+  margin: 1em 0 0 0;
+  padding: 0;
 }
-
-body {
-  min-height: 100%;  
-  background: #eee;
-  font-family: 'Lato', sans-serif;
-  font-weight: 400;
-  color: #222;
-  font-size: 14px;
-  line-height: 26px;
-  padding-bottom: 50px;
+h3 {
+  font-size: 100%;
+  margin: 0.8em 0 0.3em 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
 }
-
-.container {
-  max-width: 700px;   
-  background: #fff;
-  margin: 0px auto 0px; 
-  box-shadow: 1px 1px 2px #DAD7D7;
-  border-radius: 3px;  
-  padding: 40px;
-  margin-top: 50px;
+p {
+  margin: 0 0 0.5em 0;
+  padding: 0;
+  }
+ul {
+  padding: 0;
+  margin: 0 1.5em;
+  }
+/* ul immediately after h1 = contact list */
+h1 + ul {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  }
+h1 + ul > li {
+  display: inline;
+  white-space: pre;
+  list-style-type: none;
 }
-
-.header {
-  margin-bottom: 30px;
-  
-  .full-name {
-    font-size: 40px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-  }
-  
-  .first-name {
-    font-weight: 700;
-  }
-  
-  .last-name {
-    font-weight: 300;
-  }
-  
-  .contact-info {
-    margin-bottom: 20px;
-  }
-  
-  .email ,
-  .phone {
-    color: #999;
-    font-weight: 300;
-  } 
-  
-  .separator {
-    height: 10px;
-    display: inline-block;
-    border-left: 2px solid #999;
-    margin: 0px 10px;
-  }
-  
-  .position {
-    font-weight: bold;
-    display: inline-block;
-    margin-right: 10px;
-    text-decoration: underline;
-  }
+h1 + ul > li:after {
+  content: "  \2022  ";
 }
-
-
-.details {
-  line-height: 20px;
-  
-  .section {
-    margin-bottom: 40px;  
+h1 + ul > li:last-child:after {
+  content: "";
+}
+/* p immediately after contact list = summary */
+h1 + ul + p {
+  margin: 1em 0;
+}
+@media print {
+  body {
+      font-size: 10pt;
+      margin: 0;
+      padding: 0;
+      background: none;
   }
-  
-  .section:last-of-type {
-    margin-bottom: 0px;  
+  #resume {
+      margin: 0;
+      padding: 0;
+      border: 0px;
+      background: none;
+      box-shadow: none;
+      -webkit-box-shadow: none;
   }
-  
-  .section__title {
-    letter-spacing: 2px;
-    color: #54AFE4;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-transform: uppercase;
+  /* Do not underline abbr tags in PDF */
+  abbr {
+      text-decoration: none;
+      font-variant: none;
   }
-  
-  .section__list-item {
-    margin-bottom: 40px;
-  }
-  
-  .section__list-item:last-of-type {
-    margin-bottom: 0;
-  }
-  
-  .left ,
-  .right {
-    vertical-align: top;
-    display: inline-block;
-  }
-  
-  .left {
-    width: 60%;    
-  }
-  
-  .right {
-    tex-align: right;
-    width: 39%;    
-  }
-  
-  .name {
-    font-weight: bold;
-  }
-  
-  a {
-    text-decoration: none;
-    color: #000;
-    font-style: italic;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-    color: #000;
-  }
-  
-  .skills {
-    
-  }
-    
-  .skills__item {
-    margin-bottom: 10px;  
-  }
-  
-  .skills__item .right {
-    input {
-      display: none;
-    }
-    
-    label {
-      display: inline-block;  
-      width: 20px;
-      height: 20px;
-      background: #C3DEF3;
-      border-radius: 20px;
-      margin-right: 3px;
-    }
-    
-    input:checked + label {
-      background: #79A9CE;
-    }
+  /* Make links black in PDF */
+  /* Move this outside the print block to apply this in HTML too */
+  a, a:link, a:visited, a:hover {
+      color: #000000;
+      text-decoration: underline;
   }
 }
-
-
-
-
-
-
-
-
+@page {
+  /* Change margins and paper size of PDF */
+  /* https://developer.mozilla.org/en-US/docs/Web/CSS/@page */
+  size: letter;
+  margin: 0.5in 0.8in;
+}
+@media screen and (max-width: 800px) {
+  body {
+      font-size: 16pt;
+      margin: 0;
+      padding: 0;
+      background: #FFFFFF !important;
+  }
+  #resume {
+      margin: 0;
+      padding: 1em;
+      border: 0px;
+      background: none;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+  }
+}

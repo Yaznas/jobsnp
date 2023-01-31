@@ -53,6 +53,9 @@
                         <ul class="dropdown-menu dropdown-menu-end"
                             aria-labelledby="navbarDropdown">
                             <li>
+                                <a class="dropdown-item disabled" href="#">Hi, {{ user.first_name}}</a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="{% url 'jobs:dashboard' %}">Dashboard</a>
                             </li>
                             {% if user.role == 'employer' %}

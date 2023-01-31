@@ -10,6 +10,7 @@ class ResumeForm(forms.ModelForm):
             "name",
             "email",
             "phone",
+            "location",
             "about",
             "education",
             "projects",
@@ -28,6 +29,9 @@ class ResumeForm(forms.ModelForm):
                     "class": "form-control",
                     "placeholder": "Enter your phone number",
                 }
+            ),
+            "location": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": "Enter Your Location"}
             ),
             "about": forms.Textarea(
                 attrs={"class": "form-control", "placeholder": "Enter your information"}

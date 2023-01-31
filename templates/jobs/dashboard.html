@@ -90,11 +90,11 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                        <p class="m-5 text-center">
+                        <p class="m-5 text-center lead">
                             Want to add more jobs?? <a href="{% url 'jobs:post-job' %}">Post a new job.</a>
                         </p>
                     {% else %}
-                        <p class="m-5">
+                        <p class="m-5 text-center lead">
                             Not found any jobs!! <a href="{% url 'jobs:post-job' %}">Post a new job.</a>
                         </p>
                     {% endif %}
