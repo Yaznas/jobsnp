@@ -38,7 +38,10 @@
             <div class="col-md-4">
                 <h3>Job Overview</h3>
                 <div class="card">
-                    <ul class="list-group">
+                    <ul class="list-group"> 
+                        <li class="list-group-item">
+                            <i class="fa-solid fa-user-tag"></i> Category: {{ job.category }}
+                        </li>
                         <li class="list-group-item">
                             <i class="fa-solid fa-location-pin"></i> Location: {{ job.location }}
                         </li>
@@ -94,8 +97,7 @@
                     {% elif request.user.id == job.user.id and user.role == 'employer' %}
                         <div class="text-center">
                             <a href="{% url 'jobs:update-job' job.id %}" class="btn btn-info btn-md">Edit</a>
-                            <a href="{% url 'jobs:delete-job' job.id %}"
-                               class="btn btn-danger btn-md">Delete</a>
+                            <a href="{% url 'jobs:delete-job' job.id %}" class="btn btn-danger btn-md">Delete</a>
                         </div>
                     {% elif user.role == none %}
                         <div class="col-auto my-2">

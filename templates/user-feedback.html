@@ -15,19 +15,16 @@
         </div>
     </div>
     <!-- Feedback -->
-    <div class="container my-4">
+    <section class="container my-4">
         <div class="row">
             <div class="col-sm-6">
                 <h3>Read user's feedbacks here!</h3>
-                {% if message %}
                 {% for message in user_messages %}
                     <ul class="list-group">
                         <li class="list-group-item">{{ message.sender.get_full_name }} said: {{ message.message }}</li>
                     </ul>
-                {% endfor %}
-                {% endif %}
+                {% endfor %}               
             </div>
-            <p>No feedback yet!</p>
         </div>
-    </div>
+    </section>
 {% endblock content %}
