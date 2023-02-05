@@ -43,15 +43,21 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
+
 # Email Notification
 @receiver(post_save, sender=Job)
 def send_email_notification(sender, instance, created, **kwargs):
     if created:
-        subject = 'New job opportunity'
-        message = f'A new job "{instance.title}" has been posted by {instance.company_name}.'
-        from_email = 'JobsNP Admin'
-        recipient_list = [user.email for user in User.objects.all().filter(role="jobseeker")]
+        subject = "New job opportunity"
+        message = (
+            f'A new job "{instance.title}" has been posted by {instance.company_name}.'
+        )
+        from_email = "JobsNP Admin"
+        recipient_list = [
+            user.email for user in User.objects.all().filter(role="jobseeker")
+        ]
         send_mail(subject, message, from_email, recipient_list)
+
 
 post_save.connect(send_email_notification, sender=Job)
 

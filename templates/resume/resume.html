@@ -17,20 +17,23 @@
         <div id="resume">
             <h1>{{ resume.name }}</h1>
             <ul>
-                <li><a href="{{ resume.email }}">{{ resume.email }}</a></li>
+                <li>
+                    <a href="{{ resume.email }}">{{ resume.email }}</a>
+                </li>
                 <li>{{ resume.phone }}</li>
                 <li>{{ resume.location }}</li>
             </ul>
             <h2>About</h2>
             <p>{{ resume.about }}</p>
             <h2>Work Experience</h2>
-            <p>{{ resume.work | safe | safe }}
-            <h2>Projects</h2>
-            <p>{{ resume.projects | safe }}</p>
-            <h2>Education</h2>
-            <p>{{ resume.education | safe }}</p>
-            <h2>Skills</h2>
-            <p>{{ resume.skills | safe }}</p>
-        </div>
-    </body>
-</html>
+            <p>
+                {{ resume.work | safe | safe }}
+                <h2>Projects</h2>
+                <p>{{ resume.projects | safe }}</p>
+                <h2>Education</h2>
+                <p>{{ resume.education | safe }}</p>
+                <h2>Skills</h2>
+                <p>{{ resume.skills | safe }}</p>
+            </div>
+        </body>
+    </html>

@@ -40,7 +40,10 @@ def post_job_view(request):
         instance.save()
         # for save tags
         job_form.save_m2m()
-        messages.success(request, "You have successfully posted your job! Also, An Email Notification has been sent to Jobseekers!")
+        messages.success(
+            request,
+            "You have successfully posted your job! Also, An Email Notification has been sent to Jobseekers!",
+        )
         return redirect(reverse("jobs:job-detail", kwargs={"id": instance.id}))
 
     context = {"job_form": job_form, "categories": categories}

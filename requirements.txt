@@ -21,6 +21,7 @@ pathspec==0.10.3
 Pillow==9.2.0
 platformdirs==2.5.2
 psycopg2==2.9.5
+PyPDF2==3.0.1
 PyYAML==6.0
 regex==2022.10.31
 six==1.16.0

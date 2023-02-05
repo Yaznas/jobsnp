@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Resume Form - Create your Resume{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <!-- Header -->
+        <div style="background: url('{% static 'images/universe-header.jpg' %}')"
+             class="bg-cover text-white">
+            <div class="container py-5 text-center">
+                <h1 class="display-4 font-weight-bold">Extracted PDF</h1>
+                <h2 class="font-italic mb-0">Text Extracted from PDF</h2>
+                <div aria-label="breadcrumb">
+                    <a href="{% url 'jobs:home' %}">Home</a> <span class="mx-2 slash">/</span>
+                    <span class="text-white"><strong>PDF to Text</strong></span>
+                </div>
+            </div>
+        </div>
+        {% include 'messages.html' %}
+        <!-- PDF to Text -->
+        <div class="container">
+            <div class="row my-4 justify-content-md-center">
+                <div class="col-sm-10">
+                    <p>{{ text|linebreaks }}</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}

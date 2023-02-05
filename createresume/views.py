@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import get_user_model
+from PyPDF2 import PdfReader
 
 from accounts.models import User
 from .models import Resume
@@ -38,3 +39,19 @@ def resume_detail_view(request, id):
         "resume": resume,
     }
     return render(request, "resume/resume.html", context)
+
+
+@login_required(login_url=reverse_lazy("accounts:login"))
+def extract_pdf_text(request):
+    if request.method == "POST":
+        pdf_file = request.FILES.get("pdf_file")
+        if pdf_file.content_type == "application/pdf":
+            pdf = PdfReader(pdf_file)
+            page = pdf.pages[0]
+            text = page.extract_text()
+            messages.success(request, "You have extracted text from pdf file.")
+            context = {"text": text}
+            return render(request, "resume/pdf_text.html", context)
+        else:
+            return redirect("upload_pdf")
+    return render(request, "resume/upload_pdf.html")

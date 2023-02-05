@@ -33,13 +33,13 @@
                     {% endif %}
                 </p>
                 {% if user.role == 'jobseeker' %}
-                <p>
-                    <h3>CV: </h3>
-                    <a href="{{ user.cv.url }}">{{ user.cv }}</a>
-                </p>
-                <div class="pb-4">
+                    <p>
+                        <h3>CV:</h3>
+                        <a href="{{ user.cv.url }}">{{ user.cv }}</a>
+                    </p>
+                    <div class="pb-4">
                         <a href="{% url 'accounts:edit-profile' user.id %}" class="btn btn-info">Edit Profile</a>
-                {% endif %}
+                    {% endif %}
                     <a href="mailto:{{ user.email }}" class="btn btn-primary">Contact</a>
                 </div>
             </div>
