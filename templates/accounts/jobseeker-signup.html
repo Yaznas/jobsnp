@@ -14,7 +14,14 @@
                         <h5 class="card-title text-center mb-5 fw-light fs-5">Signup as a Jobseeker</h5>
                         <form method="POST" enctype="multipart/form-data">
                             {% csrf_token %}
-                            {{ form.as_p }}
+                            {% for field in form %}
+                                <p>
+                                    {{ field.label_tag }}
+                                    <br>
+                                    {{ field }}
+                                    {% if field.help_text %}{{ field.help_text|safe }}{% endif %}
+                                </p>
+                            {% endfor %}
                             <div class="d-grid mb-2">
                                 <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase"
                                         type="submit">Signup</button>

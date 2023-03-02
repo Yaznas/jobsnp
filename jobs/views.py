@@ -5,11 +5,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.core.paginator import Paginator
 from django.contrib.auth import get_user_model
+from PyPDF2 import PdfReader
+import re
 
 from accounts.models import User
 from .models import *
 from .forms import *
 from .permission import *
+from django.db.models import Q
 
 User = get_user_model()
 
@@ -288,3 +291,32 @@ def see_feedback(request):
     user_messages = FeedbackMessage.objects.filter(receiver=request.user)
     context = {"user_messages": user_messages}
     return render(request, "user-feedback.html", context)
+
+@login_required(login_url=reverse_lazy("accounts:login"))
+def extract_pdf_text(request):
+    if request.method == "POST":
+        # Extract text from uploaded pdf file.
+        pdf_file = request.FILES.get("pdf_file")
+        try:
+            pdf = PdfReader(pdf_file)
+            extracted_text = ''
+            for page in pdf.pages:
+                extracted_text += page.extract_text()
+            
+            cleaned_text = re.sub('\x00', '', extracted_text)
+            cleaned_text = cleaned_text.split()
+
+            # Search for text in job models.
+            q_filters = Q()
+            for text in cleaned_text:
+                q_filters |= Q(title__icontains=text)
+            
+            matching_jobs = Job.objects.filter(q_filters)
+
+            context = {"extracted_text": cleaned_text, "matching_jobs": matching_jobs}
+            messages.success(request, "Text extracted and jobs matching your resume have been found.")
+            return render(request, "resume/pdf_text.html", context)
+        except Exception as e:
+            messages.error(request, f"Error: {e}")
+            return render(request, "resume/upload_pdf.html")
+    return render(request, "resume/upload_pdf.html")

@@ -36,4 +36,6 @@ urlpatterns = [
     path("result/", views.search_job_view, name="search-job"),
     path("feedback/<int:receiver_id>/", views.send_feedback, name="send-feedback"),
     path("feedbacks/", views.see_feedback, name="see-feedback"),
+    path("resume/upload/", views.extract_pdf_text, name="upload-pdf"),
+    path("resume/text/", views.extract_pdf_text, name="pdf-text"),
 ]
