@@ -25,12 +25,11 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o^ht8!j==rsq=y&9y4$f8^f*h%s9%@b=@=$$az(9c*zd!3k3^z'
-
+SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app']
 
 
 # Application definition
@@ -84,16 +83,15 @@ WSGI_APPLICATION = 'jobsnp.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'jobsnp',
-       'USER': 'postgres',
-       'PASSWORD': '123sanj53',
-       'HOST': 'localhost',
-       'PORT': '5432',
-   }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': env('NAME'),
+    'USER': env('USER'),
+    'PASSWORD': env('PASSWORD'),
+    'HOST': env('HOST'),
+    'PORT': env('PORT'),
+  }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
